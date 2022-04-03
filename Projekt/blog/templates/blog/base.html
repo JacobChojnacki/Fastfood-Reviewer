@@ -12,10 +12,19 @@
             {% endblock %}
         </div>
         <div id="sidebar">
-            <h2>Liczba postow</h2>
+            <h2>Całkowita liczba opinii na naszej stronie</h2>
             <p> {%total_posts%} </p>
             <h3>Ostatnio dodane posty</h3>
             {% show_latest_posts 3 %}
+            <h3>Najczęściej komentowane produkty</h3>
+            {% get_most_comments_posts as most_comments %}
+            <ul>
+            {% for post in most_comments %}
+                <li> 
+                    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                </li>
+            {% endfor %}    
+            </ul>
         </div>
     </body>
 </html>
