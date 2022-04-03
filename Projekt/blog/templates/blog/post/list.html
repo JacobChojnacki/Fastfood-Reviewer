@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+
+{% block title%}Cos sie dzieje, cos tutaj jest robione {% endblock %}
+
+{% block content %}
+    <h1>Jakies posty</h1>
+    {% for post in posts %}
+        <h2>
+            <a href="{{ post.get_absolute_url }}">
+                {{ post.title}}
+            </a>
+        </h2>
+        <p class="date">
+            Opublikowany {{post.publish}} przez {{post.author}}
+        </p>
+        {{post.body|truncatewords:6}}
+    {% endfor %}
+    {% include "pagination.html" with page=page_obj %}
+{% endblock %}
