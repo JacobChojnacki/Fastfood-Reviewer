@@ -2,16 +2,19 @@ body {
     margin:0;
     padding:0;
     font-family:helvetica, sans-serif;
-    background: #333;
+    background: #161623;
+    text-align: center;
 }
 
 a { 
-    color:#00abff;
+    color:#0eee5c;
     text-decoration:none; 
 }
 
 h1 { 
+    color: #ccc;
     font-weight:normal;
+    font-size: 45px;
     border-bottom:1px solid #bbb;
     padding:0 0 10px 0;
 }
@@ -90,4 +93,22 @@ input[type=submit] {
     font-weight:bold;
     font-size:12px;
     color:#666;
+}
+#sidebar {
+    background: #161623;
+    border: solid #fff;
+    border-radius: 20%;
+    color: rgb(255, 235, 12);
+}
+
+#sidebar ul {
+    text-align: left;
+}
+
+.tags {
+color: rgb(255, 255, 255);
+}
+
+.date {
+    border-bottom: solid #fff;
 }
