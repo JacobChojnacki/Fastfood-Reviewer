@@ -120,11 +120,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATICFILES_DIRS = [
-    'C:/Users/ZEPHYRUS/Desktop/Aplikacje/Kursy/Projekt_IO/Projekt/blog/static/',
-]
+STATIC_URL = '/static/'
 
-STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+VENW_PATH = os.path.dirname(BASE_DIR)
+STATIC_ROOT = os.path.join(VENW_PATH, 'static root')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
