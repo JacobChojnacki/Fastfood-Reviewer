@@ -3,8 +3,33 @@ from .models import Post, Comment
 from .forms import EmailPostForm, CommentForm
 from django.core.mail import send_mail
 from django.views.generic import ListView
+from taggit.models import Tag
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
+
+#Pobieramy tag z domyslnym ustawieniem na None
+def post_list(request, tag_slug=None):
+    object_list = Post.objects.all()
+    tag = None
+
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        object_list = object_list.filter(tags__in=[tag])
+
+    paginator = Paginator(object_list, 12) # 12 postow na strone, korzystamy z Paginator
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    return render(request,
+                 'blog/post/list.html',
+                 {'page': page,
+                  'posts': posts,
+                  'tag': tag})
 
 class PostListView(ListView):
     queryset = Post.objects.all()

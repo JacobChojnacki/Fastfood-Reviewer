@@ -2,8 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.urls import reverse
+from taggit.managers import TaggableManager
 # Create your models here.
 
+#jakbyscie mieli problem z tagami to zobaczcie ten post
+# https://stackoverflow.com/questions/70497294/get-extra-restriction-missing-1-required-positional-argument-related-alias
 class Post(models.Model):
     title = models.CharField(max_length=150)
     slug = models.SlugField(max_length = 150, unique_for_date='publish')
@@ -13,6 +16,7 @@ class Post(models.Model):
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    tags = TaggableManager()
 
     class Meta:
         ordering = ('-publish',)
