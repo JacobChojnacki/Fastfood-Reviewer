@@ -1,8 +1,13 @@
+
+*{
+    padding: 0;
+    margin: 0;
+}
 body { 
     margin:0;
     padding:0;
     font-family:helvetica, sans-serif;
-    background: #161623;
+    background-image: url("https://images.unsplash.com/photo-1546193079-485c5717ebe1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80");
     text-align: center;
 }
 
