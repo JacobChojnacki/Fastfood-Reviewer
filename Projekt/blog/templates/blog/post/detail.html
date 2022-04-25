@@ -2,50 +2,60 @@
 {% load blog_tags %}
 
 {% block title %}{{post.title}}{% endblock %}
-
 {% block content %}
 
-    <h1>{{post.title}}</h1>
-    {{ post.image }}
-    {{post.body|markdown}}
-
-    <p>
+<div class="container">
+    <h2 class="display-2 text-warning">{{post.title}}</h2>
+    <div class="container text-white">
+        {{ post.image }}
+        {{post.body|markdown}}
+    </div>
+    <p class="lead">
         <a href="{%url "blog:post_share" post.id %}">
             Udostepnij
         </a>
+        <hr class="my-1 text-white">
     </p>
-    <h2>Podobne posty</h2>
+</div>
+    <h4 class="text-secondary">Podobne posty</h4>
     {% for post in similar_posts %}
-        <p>
+        <p class="mb-0">
             <a href =" {{ post.get_absolute_url }}"> {{post.title}}</a>
         </p>
         {% empty %}
         Poki co nie dodano podobnych pozycji.
         {% endfor %}
     {% with comments.count as total_comments %}
-        <h2>
+        <h6 class="text-white">
             {{ total_comments}} komentarz{{total_comments|pluralize:"y" }}
+            <hr class="my-4 text-white">
         </h2>
     {% endwith %}
     {% for comment in comments %}
-        <div class="comment">
-            <p class = "info">
-                Komentarz {{ forloop.counter }} dodany przez {{ comment.email }}
-                {{ comment.created }}
-            </p>
+        <div class="text-danger">
+            <p style="font-size: 1.5em">
             {{ comment.body }}
+            </p>
+            <p class = "text-white" style="font-size: 60%">
+                Komentarz {{ forloop.counter }} dodany przez {{ comment.email }}
+                {{ comment.created }} 
+            </p>
         </div>
+        <hr class="my-2 text-white">
     {% empty %}
-        <p>Nie ma jeszcze komentarzy</p>
+        <p class="text-white">Nie ma jeszcze komentarzy</p>
     {% endfor %}
     {% if new_comment %}
-        <h2>Dodano komentarz</h2>
+        <h2 class="display-6 text-white">Dodano komentarz</h2>
     {% else %}
-        <h2>Dodaj komentarz</h2>
-        <form action="." method="POST">
+
+        <h3 class="text-info">Dodaj komentarz</h3>
+        <div class="d-flex justify-content-center text-white text-center">
+        <form class="text-white" action="." method="POST">
             {{ comment_form.as_p}}
             {% csrf_token %}
             <p><input type="submit" value="Dodaj komentarz"></p>
         </form>
+        </div>
     {% endif %}
 {% endblock %}

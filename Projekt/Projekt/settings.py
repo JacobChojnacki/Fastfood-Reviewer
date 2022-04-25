@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'javascript_settings',
     'taggit',
-    'django.contrib.sites',
     'django.contrib.sitemaps',
 ]
 

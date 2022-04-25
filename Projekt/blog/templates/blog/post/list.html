@@ -3,11 +3,12 @@
 {% block title%}Cos sie dzieje, cos tutaj jest robione {% endblock %}
 
 {% block content %}
-    <h1 class="display-1 text-success">Jakies posty</h1>
+    <h1 class="display-1 text-success">Ostatnie opinie</h1>
     {% if tag %}
         <h2>Posty oznaczone tagiem "{{ tag.name }}"</h2>
     {% endif %}
     {% for post in posts %}
+    <div class="container">
     <div class="py-1 mb-2">
         <h5 class="display-5 text-success">
             <a href="{{ post.get_absolute_url }}">
@@ -24,10 +25,14 @@
                 {% if not forloop.last %}, {% endif %}
             {%endfor%}
         </p>
-        <p class="date">
+        <p class="date text-white">
             Opublikowany {{post.publish}} przez {{post.author}}
         </p>
-        {{ post.body|markdown|truncatewords_html:30 }}
+        <div class="container text-white">
+            {{ post.body|markdown|truncatewords_html:30 }}
+            <hr class="my-4 text-white">
+        </div>
+        <div>
     {% endfor %}
     {% include "pagination.html" with page=posts %}
 {% endblock %}

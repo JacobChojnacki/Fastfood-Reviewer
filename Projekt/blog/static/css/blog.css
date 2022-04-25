@@ -35,7 +35,7 @@ h2 {
     padding:0 0 0 30px; 
 }
 
-#sidebar { 
+.sidebar { 
     float:right;
     width:30%;
     padding:10px;
@@ -60,8 +60,9 @@ p.date {
 label { 
     float:left;
     clear:both;
-    color:#333;
+    color:rgb(64, 234, 12);
     margin-bottom:4px; 
+    text-align: center;
 }
 input, textarea { 
     clear:both;
@@ -99,21 +100,19 @@ input[type=submit] {
     font-size:12px;
     color:#666;
 }
-#sidebar {
+.sidebar {
     background: #161623;
     border: solid #fff;
-    border-radius: 20%;
+    border-radius: 10%;
     color: rgb(255, 235, 12);
+    text-align: center;
+    display: block;
 }
 
-#sidebar ul {
+.sidebar ul {
     text-align: left;
 }
 
 .tags {
 color: rgb(255, 255, 255);
-}
-
-.date {
-    border-bottom: solid #fff;
 }

@@ -11,71 +11,69 @@
     </head>
     <body>
         <header>
-          <nav class="navbar navbar-expand-lg navbar-dark  bg-dark p-3">
+          <nav class="navbar navbar-expand-lg navbar-dark bg-dark opacity-85">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#">Food Helper
-
-              </a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <a class="navbar-brand" href="#">Food Love</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
 
-              <div class=" collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav ms-auto ">
+              <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
                   <li class="nav-item">
-                    <a class="nav-link mx-2 active" aria-current="page" href="..">Home</a>
+                    <a class="nav-link active" href="http://127.0.0.1:8000">Home
+                      <span class="visually-hidden">(current)</span>
+                    </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link mx-2" href="#">Option 2</a>
+                    <a class="nav-link" href="#">Features</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link mx-2" href="#">Option 3</a>
+                    <a class="nav-link" href="#">In progress</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
                   </li>
                   <li class="nav-item dropdown">
-                    <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Brands
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                      <li><a class="dropdown-item" href="#">MCDonald</a></li>
-                      <li><a class="dropdown-item" href="#">KFC</a></li>
-                      <li><a class="dropdown-item" href="#">Burger King</a></li>
-                    </ul>
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Brands</a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">MC Donald</a>
+                      <a class="dropdown-item" href="#">KFC</a>
+                      <a class="dropdown-item" href="#">Burger King</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Another</a>
+                    </div>
                   </li>
                 </ul>
-                <ul class="navbar-nav ms-auto d-none d-lg-inline-flex">
-                  <li class="nav-item mx-2">
-                    <a class="nav-link text-dark h5" href="" target="blank">Login</a>
-                  </li>
-                  <li class="nav-item mx-2">
-                    <a class="nav-link text-dark h5" href="" target="blank">Register</a>
-                  </li>
-                  <li class="nav-item mx-2">
-                    <a class="nav-link text-dark h5" href="" target="blank"></a>
-                  </li>
-                </ul>
+                <form role="search" class="d-flex">
+                  <input class="form-control me-sm-2" type="text" placeholder="Search" name="tag">
+                  <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                </form>
               </div>
             </div>
           </nav>
         </header>
-        <div id="container">
-            {% block content %}
-            {% endblock %}
+        <div class="container">
+              {% block content %}
+              {% endblock %}
         </div>
-        <div id="sidebar">
-            <h2>Całkowita liczba opinii na naszej stronie</h2>
-            <p> {%total_posts%} </p>
-            <h3>Ostatnio dodane posty</h3>
-            {% show_latest_posts 3 %}
-            <h3>Najczęściej komentowane produkty</h3>
-            {% get_most_comments_posts as most_comments %}
-            <ul>
-            {% for post in most_comments %}
+        <div class="d-flex justify-content-center">
+            <div class="sidebar opacity-35">
+              <h2>Całkowita liczba opinii na naszej stronie</h2>
+              <p> {%total_posts%} </p>
+              <h3>Ostatnio dodane posty</h3>
+                {% show_latest_posts 3 %}
+              <h3>Najczęściej komentowane produkty</h3>
+                {% get_most_comments_posts as most_comments %}
+              <ul>
+                {% for post in most_comments %}
                 <li> 
-                    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                   <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
                 </li>
-            {% endfor %}    
-            </ul>
+                  {% endfor %}    
+              </ul>
+            </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>
 </html>
