@@ -1,14 +1,15 @@
 {% extends "blog/base.html" %}
 
-<h1>
 {% block title %}Udostepnij post{% endblock %}
-</h1>
-<div class="d-flex justify-content-center text-white">
-     {% block content %}
+{% block content %}
+<br>
+<div class="container bg-dark p-2 text-info bg-opacity-75 rounded">
+     
         {% if sent %}
             <h1>Wiadomosc zostala wyslana</h1>
         {% else %}
-            <h1>Udostepnij {{ post.title }}</h1>
+            <h1 class="text-white">Udostepnij {{ post.title }}</h1>
+            <div>
             <form class="form-horizontal text-justify text-white" action="." method="POST">
                 <div class="text-justify text-white">
                 {{form.as_p}}

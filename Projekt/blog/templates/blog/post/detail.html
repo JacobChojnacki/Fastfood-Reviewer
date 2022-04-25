@@ -4,20 +4,22 @@
 {% block title %}{{post.title}}{% endblock %}
 {% block content %}
 
-<div class="container">
-    <h2 class="display-2 text-warning">{{post.title}}</h2>
+<div class="bg-dark p-2 text-info bg-opacity-75 rounded-pill">
+    <h2 class="display-2 text-white">{{post.title}}</h2>
     <div class="container text-white">
-        {{ post.image }}
+        <img src="{{post.image.url}}" height="100px" width="150px">
         {{post.body|markdown}}
     </div>
     <p class="lead">
         <a href="{%url "blog:post_share" post.id %}">
             Udostepnij
         </a>
-        <hr class="my-1 text-white">
+        
     </p>
 </div>
-    <h4 class="text-secondary">Podobne posty</h4>
+<hr class="my-4 text-dark">
+<div class="container-md bg-dark p-2 text-info bg-opacity-75" style="width:50%">
+    <h4 class="text-white">Podobne posty</h4>
     {% for post in similar_posts %}
         <p class="mb-0">
             <a href =" {{ post.get_absolute_url }}"> {{post.title}}</a>
@@ -28,11 +30,13 @@
     {% with comments.count as total_comments %}
         <h6 class="text-white">
             {{ total_comments}} komentarz{{total_comments|pluralize:"y" }}
-            <hr class="my-4 text-white">
+            <hr class="my-4 text-dark">
         </h2>
     {% endwith %}
+    </div>
+    <hr class="my-4 text-dark">
     {% for comment in comments %}
-        <div class="text-danger">
+        <div class="bg-dark p-2 text-white bg-opacity-75">
             <p style="font-size: 1.5em">
             {{ comment.body }}
             </p>
@@ -41,16 +45,15 @@
                 {{ comment.created }} 
             </p>
         </div>
-        <hr class="my-2 text-white">
+        <hr class="my-2 text-dark">
     {% empty %}
-        <p class="text-white">Nie ma jeszcze komentarzy</p>
+        <p class="text-white bg-dark opacity-75">Nie ma jeszcze komentarzy</p>
     {% endfor %}
     {% if new_comment %}
         <h2 class="display-6 text-white">Dodano komentarz</h2>
     {% else %}
-
-        <h3 class="text-info">Dodaj komentarz</h3>
-        <div class="d-flex justify-content-center text-white text-center">
+        <h3 class="text-white bg-dark opacity-75 rounded-pill">Dodaj komentarz</h3>
+        <div class="d-flex justify-content-center bg-dark p-2 text-info bg-opacity-75 rounded-pill">
         <form class="text-white" action="." method="POST">
             {{ comment_form.as_p}}
             {% csrf_token %}

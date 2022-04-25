@@ -122,8 +122,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'blog','static')]
+MEDIA_ROOT = os.path.join(BASE_DIR, 'blog/media')
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'blog/static'),
+)
 VENW_PATH = os.path.dirname(BASE_DIR)
 STATIC_ROOT = os.path.join(VENW_PATH, 'static root')
 
@@ -131,3 +136,5 @@ STATIC_ROOT = os.path.join(VENW_PATH, 'static root')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
