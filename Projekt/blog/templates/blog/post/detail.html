@@ -8,7 +8,13 @@
     <h2 class="display-2 text-white">{{post.title}}</h2>
     <div class="container text-white">
         <img src="{{post.image.url}}" height="100px" width="150px">
-        {{post.body|markdown}}
+        <h2 class="subtitle">Brak ocen: 
+            {% if post.get_rating == 0 %}
+                Brak ocen
+            {% else %}
+                {{ post.get_rating|floatformat:1 }}
+            {% endif %}
+        </h2>
     </div>
     <p class="lead">
         <a href="{%url "blog:post_share" post.id %}">
@@ -51,13 +57,77 @@
     {% if new_comment %}
         <h2 class="display-6 text-white">Dodano komentarz</h2>
     {% else %}
-        <h3 class="text-white bg-dark opacity-75 rounded-pill">Dodaj komentarz</h3>
+        {% comment %} <h3 class="text-white bg-dark opacity-75 rounded-pill">Dodaj komentarz</h3>
         <div class="d-flex justify-content-center bg-dark p-2 text-info bg-opacity-75 rounded-pill">
         <form class="text-white" action="." method="POST">
             {{ comment_form.as_p}}
             {% csrf_token %}
             <p><input type="submit" value="Dodaj komentarz"></p>
         </form>
-        </div>
+        </div> {% endcomment %}
     {% endif %}
+    <h2 class="subtitle">Oceny</h2>
+
+        <div class="reviews-wrapper">
+            {% for review in product.reviews.all %}
+                <div class="notification space-below">
+                    <p>
+                        <strong>Date: </strong>{{ review.date_added|date:"Y-m-d" }},
+                        <strong>Stars: </strong>{{ review.stars }}
+                    </p>
+                    {{ review.content }}
+                </div>
+            {% empty %}
+                <div class="notification space-below">
+                    Nie dodano jeszcze opinii.
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="notification space-below">
+            {% if request.user.is_authenticated %}
+                <form method="post" action=".">
+                    {% csrf_token %}
+
+                    <div class="field">
+                        <label>Stars</label>
+
+                        <div clas="control">
+                            <div class="select">
+                                <select name="stars">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3" selected>3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Treść</label>
+
+                        <div class="control">
+                            <textarea class="textarea" name="content"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-success">Potwierdz</button>
+                        </div>
+                    </div>
+                </form>
+
+            {% else %}
+                <div class="d-flex justify-content-center bg-dark p-2 text-info bg-opacity-75 rounded-pill">
+                    <form class="text-white" action="." method="POST">
+                        {{ comment_form.as_p}}
+                        {% csrf_token %}
+                        <p><input type="submit" value="Dodaj komentarz"></p>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
 {% endblock %}

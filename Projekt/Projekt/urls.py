@@ -29,6 +29,7 @@ urlpatterns = [
     path('', views.home_view, name='home'),
     path('admin/', admin.site.urls),
     path('account/', include('account.urls')),
+    path('social-auth/', include('social_django.urls', namespace='social')),
     path('blog/', include('blog.urls', namespace='blog')),
     path('sitemap', sitemap, {'sitemaps': sitemaps},
         name='django.contrib.sitemaps.views.sitemap')

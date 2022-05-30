@@ -1,6 +1,6 @@
 from turtle import pos
-from django.shortcuts import render, get_object_or_404
-from .models import Post, Comment
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Post, Comment, ProductReview
 from .forms import EmailPostForm, CommentForm
 from django.core.mail import send_mail
 from django.views.generic import ListView
@@ -45,6 +45,14 @@ def post_detail(request, year, month, day, post):
                                    publish__month=month,
                                    publish__day=day)
     comments = post.comments.filter(active = True)
+    if request.method == 'POST' and request.user.is_authenticated:
+        stars = request.POST.get('stars', 3)
+        content = request.POST.get('content', '')
+
+        review = ProductReview.objects.create(post=post, user=request.user, stars=stars, content=content)
+        return redirect("blog:post_detail", year=year, month=month, day=day, post=post)
+
+    
     if request.method == "POST":
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():

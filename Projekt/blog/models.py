@@ -30,6 +30,12 @@ class Post(models.Model):
                                                  self.publish.strftime("%m"),
                                                  self.publish.strftime("%d"),
                                                  self.slug])
+    def get_rating(self):
+        total = sum(int(review['stars']) for review in self.reviews.values())
+        if self.reviews.count() > 0:
+            return total / self.reviews.count()
+        else:
+            return 0
 
 class Comment(models.Model):
     post = models.ForeignKey(Post,
@@ -47,3 +53,14 @@ class Comment(models.Model):
     
     def __str__(self):
         return "Komentarz dodany przez {} dla posta {}".format(self.name, self.post)
+    
+class ProductReview(models.Model):
+    post = models.ForeignKey(Post,
+                             on_delete=models.CASCADE,
+                             related_name = 'reviews')
+    user = models.ForeignKey(User, related_name='reviews', on_delete=models.CASCADE)
+    
+    content = models.TextField(blank=True, null=True)
+    stars = models.IntegerField()
+    
+    date_added = models.DateTimeField(auto_now_add=True)

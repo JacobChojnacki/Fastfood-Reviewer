@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-(+9bwduzx^b6&-72&ke9i&n_&e#-fne#5tg011+*g$4f0@m1h&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['moja-witryna.pl', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'javascript_settings',
     'taggit',
     'django.contrib.sitemaps',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -111,6 +112,12 @@ LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'account.authentication.EmailAuthBackend',
+]
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/

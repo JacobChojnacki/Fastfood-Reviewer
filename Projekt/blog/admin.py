@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Comment
+from .models import Post, Comment, ProductReview
 # Register your models here.
 
 @admin.register(Post)
@@ -16,3 +16,5 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ('email', 'post', 'created')
     list_filter = ('email', 'created', 'updated')
     search_fields = ('email','body')
+    
+admin.site.register(ProductReview)
