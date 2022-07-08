@@ -8,14 +8,15 @@
 </head>
 <body>
     <div id="header">
-        <span class="logo">Food Lovers</span>
+        <span class="logo"><a href={% url "home" %}>Food Lover</a></span>
+        
         {% if request.user.is_authenticated %}
             <ul class="menu">
                 <li {% if section == "dashboard" %}class="selected"{% endif %}>
                     <a href="{% url "dashboard" %}">Main Panel</a>
                 </li>
                 <li {% if section == "images" %}class="selected"{% endif %}>
-                    <a href="/blog">Return</a>
+                    <a href={% url "home" %}>Return</a>
                 </li>
                 <li {% if section == "images" %}class="selected"{% endif %}>
                     <a href="/account/password_change">Change password</a>
@@ -29,7 +30,7 @@
                 <a href="{% url "logout" %}">Wyloguj</a>
             {% else %}
                 <a href="{% url "login" %}">Zaloguj</a> /
-                <a href="/account/register">Zarejestruj</a>
+                <a href={% url "register" %}>Zarejestruj</a>
             {% endif %}
         </span>
     </div>

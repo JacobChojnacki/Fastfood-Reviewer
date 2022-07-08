@@ -1,6 +1,6 @@
 from atexit import register
 from django import template
-from ..models import Post
+from ..models import Post, ProductReview
 from django.db.models import Count
 from django.utils.safestring import mark_safe
 import markdown
@@ -9,7 +9,7 @@ register = template.Library()
 
 @register.simple_tag
 def total_posts():
-    return Post.objects.count()
+    return ProductReview.objects.count()
 
 @register.inclusion_tag('blog/post/latest_posts.html')
 def show_latest_posts(count=6):

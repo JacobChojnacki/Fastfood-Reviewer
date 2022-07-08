@@ -5,9 +5,6 @@
 {% block content %}
     <br>
     <h1 class="display-1 text-dark bg-white p-2 text-info bg-opacity-75">Ostatnie opinie</h1>
-    {% if tag %}
-        <h2 class="bg-dark p-2 text-info bg-opacity-75 rounded-pill">Posty oznaczone tagiem "{{ tag.name }}"</h2>
-    {% endif %}
     <hr>
     {% for post in posts %}
     <div class="container">
@@ -19,22 +16,19 @@
             </a>
         </h5>
             <div class="container text-white" style="font-size:20px">
-                {{ post.body|markdown|truncatewords_html:30 }}
+                {{ post.body|markdown|truncatewords_html:10 }}
                 <hr class="my-4 text-danger">
             </div>
         
     
         <p class="tags">
-            Tagi: 
+            Firma: 
             {% for tag in post.tags.all %}
                 <a href="{% url "blog:post_list_by_tag" tag.slug %}">
                     {{ tag.name }}
                 </a>
                 {% if not forloop.last %}, {% endif %}
             {%endfor%}
-        </p>
-        <p class="date text-white">
-            Opublikowany {{post.publish}} przez {{post.author}}
         </p>
     </div>
     {% endfor %}

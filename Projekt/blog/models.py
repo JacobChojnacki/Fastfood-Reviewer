@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.urls import reverse
 from taggit.managers import TaggableManager
-# Create your models here.
 
 #jakbyscie mieli problem z tagami to zobaczcie ten post
 # https://stackoverflow.com/questions/70497294/get-extra-restriction-missing-1-required-positional-argument-related-alias
@@ -13,6 +12,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE,
                                      related_name='blog_posts')
     image = models.ImageField(upload_to='images/')
+    price= models.DecimalField(max_digits=10, decimal_places=2)
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
@@ -20,7 +20,7 @@ class Post(models.Model):
     tags = TaggableManager()
 
     class Meta:
-        ordering = ('-publish',)
+        ordering = ('-price',)
     
     def __str__(self):
         return self.title

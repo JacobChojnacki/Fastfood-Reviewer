@@ -6,13 +6,13 @@
 body { 
     margin:0;
     padding:0;
-    font-family:helvetica, sans-serif;
-    background-image: url("https://mockuptree.com/wp-content/uploads/edd/2019/12/Fast-Food-Brand-Identity-Mockup.jpg");
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-image: url('../../media/images/output-onlinepngtools.png');
     text-align: center;
 }
 
 a { 
-    color:#0eee5c;
+    color:#1d0eee;
     text-decoration:none; 
 }
 
@@ -60,7 +60,7 @@ p.date {
 label { 
     float:left;
     clear:both;
-    color:rgb(64, 234, 12);
+    color:rgb(164, 12, 234);
     margin-bottom:4px; 
     text-align: center;
 }

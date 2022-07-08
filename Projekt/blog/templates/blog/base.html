@@ -26,29 +26,9 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">In progress</a>
-                  </li>
-                  <li class="nav-item">
                     <a class="nav-link" href="/account">Account</a>
                   </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Brands</a>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">MC Donald</a>
-                      <a class="dropdown-item" href="#">KFC</a>
-                      <a class="dropdown-item" href="#">Burger King</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Another</a>
-                    </div>
-                  </li>
                 </ul>
-                <form role="search" class="d-flex">
-                  <input class="form-control me-sm-2" type="text" placeholder="Search" name="tag">
-                  <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                </form>
               </div>
             </div>
           </nav>
@@ -57,11 +37,12 @@
               {% block content %}
               {% endblock %}
         </div>
+        <hr class="my-4 text-dark">
         <div class="d-flex justify-content-center">
             <div class="sidebar bg-dark p-2 text-white bg-opacity-75">
               <h2>Całkowita liczba opinii na naszej stronie</h2>
               <p> {% total_posts %} </p>
-              <h3>Ostatnio dodane posty</h3>
+              <h3>Ostatnio dodane opinie</h3>
                 {% show_latest_posts 3 %}
               <h3>Najczęściej komentowane produkty</h3>
                 {% get_most_comments_posts as most_comments %}

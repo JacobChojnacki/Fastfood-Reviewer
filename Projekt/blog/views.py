@@ -19,8 +19,8 @@ def post_list(request, tag_slug=None):
         tag = get_object_or_404(Tag, slug=tag_slug)
         object_list = object_list.filter(tags__in=[tag])
 
-    paginator = Paginator(object_list, 12) # 12 postow na strone, korzystamy z Paginator
-    page = request.GET.get('page')
+    paginator = Paginator(object_list, 100)
+    page = request.GET.get('page',1)
     try:
         posts = paginator.page(page)
     except PageNotAnInteger:
@@ -33,11 +33,6 @@ def post_list(request, tag_slug=None):
                   'posts': posts,
                   'tag': tag})
 
-class PostListView(ListView):
-    queryset = Post.objects.all()
-    context_object_name = 'posts'
-    paginate_by = 8
-    template_name = 'blog/post/list.html'
 
 def post_detail(request, year, month, day, post):
     post = get_object_or_404(Post, slug=post,
@@ -50,7 +45,7 @@ def post_detail(request, year, month, day, post):
         content = request.POST.get('content', '')
 
         review = ProductReview.objects.create(post=post, user=request.user, stars=stars, content=content)
-        return redirect("blog:post_detail", year=year, month=month, day=day, post=post)
+        return redirect("blog:post_detail", year=year, month=month, day=day, post=post.slug)
 
     
     if request.method == "POST":

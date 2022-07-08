@@ -47,8 +47,9 @@ p.date {
 
 /* pagination */
 .pagination { 
-    margin:40px 0; 
+    margin: auto; 
     font-weight:bold;
+    text-align: center;
 }
 
 /* forms */

@@ -1,9 +1,9 @@
-<div class="pagination">
+<div class="text-center">
     <span class = "step-links">
         {% if page.has_previous %}
             <a href="?page={{ page.previous_page_number }}">Poprzednia</a>
         {% endif %}
-        <span>
+        <span class='text-dark justify-content-md-center'>
             Strona {{page.number}} z {{page.paginator.num_pages}}
         </span>
             {% if page.has_next %}
