@@ -1,0 +1,121 @@
+{% extends "blog/base.html" %}
+{% load blog_tags %}
+
+{% block title %}{{post.title}}{% endblock %}
+{% block content %}
+<hr class="my-4 text-dark">
+<div class="bg-dark p-2 text-info bg-opacity-75 rounded-pill">
+    <h2 class="display-2 text-white">{{post.title}}</h2>
+    <div class="container text-white">
+        <img src="{{post.image.url}}" height="100px" width="150px">
+        <p>{{post.body}}</p>
+        <h2 class="subtitle">Oceny: 
+            {% if post.get_rating == 0 %}
+                Brak ocen
+            {% else %}
+                {{ post.get_rating|floatformat:1 }}
+            {% endif %}
+        </h2>
+        <p>Price: {{post.price}} $</p>
+       
+    </div>
+    <p class="lead">
+        <a href="{%url "blog:post_share" post.id %}">
+            Udostepnij
+        </a>
+        
+    </p>
+</div>
+<hr class="my-4 text-dark">
+<div class="container-md bg-dark p-2 text-info bg-opacity-75" style="width:50%">
+    <h4 class="text-white">Inne produkty</h4>
+    {% for post in similar_posts %}
+        <p class="mb-0">
+            <a href =" {{ post.get_absolute_url }}"> {{post.title}}</a>
+        </p>
+        {% empty %}
+            Poki co nie dodano podobnych pozycji.
+        {% endfor %}
+    {% with comments.count as total_comments %}
+        <h6 class="text-white">
+            {{ total_comments}} komentarz{{total_comments|pluralize:"y" }}
+        </h6>
+    {% endwith %}
+    </div>
+    <hr class="my-4 text-dark">
+    {% for comment in comments %}
+        <div class="bg-dark p-2 text-white bg-opacity-75">
+            <p style="font-size: 1.5em">
+            {{ comment.body }}
+            </p>
+            <p class = "text-white" style="font-size: 60%">
+                Komentarz {{ forloop.counter }} dodany przez {{ comment.email }}
+                {{ comment.created }} 
+            </p>
+        </div>
+    {% empty %}
+        <p class="text-white bg-dark opacity-75">Nie ma jeszcze komentarzy</p>
+    {% endfor %}
+    {% if new_comment %}
+        <h2 class="display-6 text-white">Dodano komentarz</h2>
+    {% else %}
+        {% comment %} <h3 class="text-white bg-dark opacity-75 rounded-pill">Dodaj komentarz</h3>
+        <div class="d-flex justify-content-center bg-dark p-2 text-info bg-opacity-75 rounded-pill">
+        <form class="text-white" action="." method="POST">
+            {{ comment_form.as_p}}
+            {% csrf_token %}
+            <p><input type="submit" value="Dodaj komentarz"></p>
+        </form>
+        </div> {% endcomment %}
+    {% endif %}
+    <hr class="my-4 text-dark">
+    <h4 class="text-white bg-success">Oceny</h2>
+            {% for review in post.reviews.all %}
+                <div class="bg-success p-2 text-white bg-opacity-75 ">
+                    <p style='text-white'>
+                        <strong>Author </strong> {{review.user}} <br>
+                        <strong>Date: </strong>{{ review.date_added|date:"Y-m-d" }} <br>
+                        <strong>Stars: </strong>{{ review.stars }} <br>
+                        {{ review.content }}
+                    </p>
+                </div>
+                <hr class="my-4 text-dark">
+            {% empty %}
+                <div class="bg-success p-2 text-white bg-opacity-75">
+                    Nie dodano jeszcze opinii.
+                </div>
+            {% endfor %}      
+        <div class="bg-success p-2 text-white bg-opacity-75">
+            {% if request.user.is_authenticated %}
+                <form method="post" action=".">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label class="text-dark" for="exampleFormControlSelect1">Stars: </label>
+                        <select class='form-control' id="exampleFormControlSelect1" name="stars">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3" selected>3</option>
+                            <option value="4">4</option>                          
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="text-dark" for="exampleFormControlTextarea1">Treść</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="content"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Prześlij opinie</button>
+                </form>
+
+            {% else %}
+                <div class="d-flex justify-content-center bg-dark p-2 text-info bg-opacity-75 rounded-pill">
+                    <form class="text-white" action="." method="POST">
+                        {{ comment_form.as_p}}
+                        {% csrf_token %}
+                        <p>
+                            <input type="submit" value="Dodaj komentarz">
+                        </p>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+{% endblock %}
